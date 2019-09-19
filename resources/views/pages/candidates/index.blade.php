@@ -57,14 +57,19 @@
                                             Export
                                             </span>
                                         </a>
-
-                                        <button data-toggle="modal" data-target="#send-candidate-mail" disabled id="btn_send_candidate_mail" class="btn d-flex align-items-center pr-0">
+                                        {{--<button data-toggle="modal" data-target="#send-candidate-mail" disabled id="btn_send_candidate_mail" class="btn d-flex align-items-center pr-0">
                                             <i class="mdi mdi-email-outline  mr-1"></i>
                                             <span class="text-left font-weight-medium">
                                             Send Email
                                             </span>
-{{--                                            href="{{route('send-candidate-mail')}}"--}}
-                                        </button>
+                                            --}}{{--                                            href="{{route('send-candidate-mail')}}"--}}{{--
+                                        </button>--}}
+                                        <a href="{{route('send-candidate-mail')}}" class="btn d-flex align-items-center pr-0">
+                                            <i class="mdi mdi-email-outline  mr-1"></i>
+                                            <span class="text-left font-weight-medium">
+                                            Send Email
+                                            </span>
+                                        </a>
                                         @endif
 
                                         <button class="btn d-flex align-items-center pr-0" data-toggle="modal" data-target="#new-candidate-modal">
@@ -191,9 +196,21 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input id="phone_number" placeholder="Phone Number" type="text" class="form-control" name="phone_number">
+                                                <input id="phone_number" placeholder="Phone Number" type="text" class="form-control phone_number" name="phone_number">
                                                 <div class="invalid-feedback" >
                                                     Phone Number required
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="categories">Category</label><br>
+                                                <select name="category_id" id="categories" style="width: 100%" required class="js-example-basic-single form-control font-weight-medium w-100">
+                                                    <option value=""></option>
+                                                    @foreach($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="invalid-feedback" >
+                                                    Category required
                                                 </div>
                                             </div>
                                         </div>
@@ -202,8 +219,6 @@
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
-
-
                                     </form>
                                 </div>
                             </div>
@@ -224,6 +239,18 @@
 
                                                 <div class="invalid-feedback" >
                                                     Full Name required
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="categories">Category</label><br>
+                                                <select name="category_id" id="categories" style="width: 100%" required class="js-example-basic-single form-control font-weight-medium w-100">
+                                                    <option value=""></option>
+                                                    @foreach($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="invalid-feedback" >
+                                                    Category required
                                                 </div>
                                             </div>
                                         </div>
@@ -337,6 +364,18 @@
                                 <input id="edit-phone_number" placeholder="Phone Number" type="text" class="form-control" name="phone_number">
                                 <div class="invalid-feedback" >
                                     Phone Number required
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="categories">Category</label><br>
+                                <select name="category_id" id="categories" style="width: 100%" required class="js-example-basic-single form-control font-weight-medium w-100">
+                                    <option value=""></option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback" >
+                                    Category required
                                 </div>
                             </div>
                         </div>

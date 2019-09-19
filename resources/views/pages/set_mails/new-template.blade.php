@@ -66,9 +66,12 @@
                                            <label for="merge_field">Add Field</label>
                                            <select name="merge_field" id="merge_field"  class="js-example-basic-single form-control form-control-sm font-weight-medium w-100">
                                                <option value=""></option>
-                                               <option value="{{"{{"}}~first_name{!! '}}' !!}">First Name</option>
-                                               <option value="{{"{{"}}~venue{!! '}}' !!}">Schedule Venue</option>
-                                               <option value="{{"{{"}}~start_date_time{!! '}}' !!}">Start Time</option>
+                                               <option value="~first_name">First Name</option>
+                                               <option value="~section">Selected Section</option>
+                                               <option value="~venue">Schedule Venue</option>
+                                               <option value="~start_date">Start Date</option>
+                                               <option value="~start_time">Start Time</option>
+                                               <option value="~id_card">ID Card & Number</option>
                                            </select>
                                            <div class="invalid-feedback" >
                                                Return Email required

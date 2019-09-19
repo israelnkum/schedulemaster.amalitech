@@ -194,10 +194,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('schedules.index')}}">
-                            <i class="mdi mdi-calendar menu-icon"></i>
+                        <a href="#" class="nav-link">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
                             <span class="menu-title">Scheduler</span>
-                        </a>
+                            <i class="menu-arrow"></i></a>
+                        <div class="submenu">
+                            <ul class="submenu-item">
+                                <li class="nav-item"><a class="nav-link" href="{{route('categories.index')}}">Categories</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{route('schedules.index')}}">Sections</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('appointment.index')}}">
@@ -275,7 +281,7 @@
 <script src="{{asset('public/js/toastr.min.js')}}"></script>
 <script src="{{asset('public/js/select2.min.js')}}"></script>
 <script src="{{asset('public/js/select2.js')}}"></script>
-
+<script src="{{asset('public/js/mask.init.js')}}"></script>
 <script src="{{asset('public/js/dataTables/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('public/js/dataTables/buttons.flash.min.js')}}"></script>
 <script src="{{asset('public/js/dataTables/jszip.min.js')}}"></script>

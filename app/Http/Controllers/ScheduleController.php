@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
 use App\Mail\SendMail;
 use App\Schedule;
 use App\SetEmail;
@@ -48,6 +49,7 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule();
         $schedule->set_email_id = $request->input('set_emails_id');
+        $schedule->category_id = $request->input('category_id');
         $schedule->name = $request->input('name');
         $schedule->available_slot = $request->input('available_slot');
         $schedule->start_date_time = $request->input('start_date_time');
@@ -55,24 +57,14 @@ class ScheduleController extends Controller
         $schedule->venue = $request->input('venue');
         $schedule->description = $request->input('description');
         if ($schedule->save()){
+            $category = Categories::find($request->input('category_id'));
+            $category->sections = $category->sections+1;
+            $category->save();
             toastr()->success('New Schedule Added');
         }else{
             toastr()->error('Error while saving, Please Try again');
         }
-
-
         return back();
-
-       /* $data = array(
-            'title' =>$request->input('title'),
-            'position' =>$getPosition[0]->name,
-            'first_name' =>$request->input('first_name'),
-            'last_name' =>$request->input('last_name'),
-            'other_name' =>$request->input('other_name'),
-            'index_number' =>$indexnumber
-        );
-
-        Mail::to($request->input('email'))->send(new  SendMail($data));*/
     }
 
 

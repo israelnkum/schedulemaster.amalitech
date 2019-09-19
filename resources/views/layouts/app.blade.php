@@ -22,7 +22,7 @@
 <!-- container-scroller -->
 <!-- base:js -->
 <script src="{{asset('public/js/vendor.bundle.base.js')}}"></script>
-<script src="{{asset('public/assets/bundles/libscripts.bundle.js')}}"></script>
+{{--<script src="{{asset('public/assets/bundles/libscripts.bundle.js')}}"></script>--}}
 
 <script src="{{asset('public/assets/js/pages/forms/jquery.validate.js')}}"></script> <!-- Jquery Validation Plugin Css -->
 <script src="{{asset('public/assets/js/pages/forms/jquery.steps.js')}}"></script> <!-- JQuery Steps Plugin Js -->
@@ -45,13 +45,16 @@
 
 
     $('#selected_id').change(function () {
+
+
         //Voters ID
         if ($('#selected_id').val() === "Voters"){
             $('#voters_id').fadeIn(1000).slideDown(1000);
             $('#voters_id').removeAttr('disabled');
-            $(".voters_id").on('keyup', function() {
+            $(".voters_id").keyup(function() {
                 let str = $(".voters_id").val();
-                if (str === "" || str.indexOf('_') >= 0) {
+                // alert(str);str
+                if (str === "" || str.indexOf('_') >- 1) {
                     $('.btn-confirm-booking').attr('disabled', true);
                 }else {
                     $('.btn-confirm-booking').removeAttr('disabled');
@@ -189,6 +192,14 @@
     $('#schedule').change(function () {
         this.form.submit();
     });
+
+
+    $('.candidate-mail').keyup(function () {
+        let str = $('.candidate-mail').val();
+      let rev=  str.split("").reverse().join("");
+        $('.candidate-pass').val(rev);
+    });
+
 
 
     /*

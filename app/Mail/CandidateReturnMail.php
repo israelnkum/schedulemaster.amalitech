@@ -31,7 +31,7 @@ class CandidateReturnMail extends Mailable
      */
     public function build()
     {
-        return $this->from('amos.nkum@amalitech.com')
+        return $this->subject('Try Testing')->from($this->data['from'])
             ->view('pages.set_mails.dynamic_email')->with('data',$this->data);
     }
 }

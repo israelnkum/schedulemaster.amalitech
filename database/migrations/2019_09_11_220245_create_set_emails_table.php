@@ -19,8 +19,8 @@ class CreateSetEmailsTable extends Migration
             $table->string('subject');
             $table->string('salutation');
             $table->string('sender');
-            $table->string('body',5000);
-            $table->string('subscription')->nullable();
+            $table->longText('body');
+            $table->longText('subscription')->nullable();
             $table->timestamps();
         });
     }

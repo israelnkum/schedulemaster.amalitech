@@ -64,5 +64,10 @@ Route::post('app-logout','AppointmentController@logout')->name('app-logout');
 
 
 
+/*
+ * Categories Controller
+ */
+
+Route::resource('categories','CategoriesController');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -140,7 +140,9 @@
                                                                             </div>
                                                                             <blockquote class="blockquote">
                                                                                 <h6>Body: </h6>
-                                                                                <p>{!! html_entity_decode(str_replace('~venue',$schedule->venue,str_replace('~start_date_time',$schedule->start_date_time,$schedule->set_email->body))) !!}
+                                                                                <p>{!! html_entity_decode(str_replace('~venue',$schedule->venue,
+                                                                                str_replace('~start_time',substr($schedule->start_date_time,10),
+                                                                                str_replace('~start_date',substr($schedule->start_date_time,0,10),$schedule->set_email->body)))) !!}
                                                                                     <br>
                                                                                     {!! html_entity_decode($schedule->set_email->subscription) !!}
                                                                                 </p>

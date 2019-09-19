@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Candidate;
+use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -13,7 +14,7 @@ class UserExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return Candidate::all('name','email','phone_number');
+        return User::where('role','Candidate')->get(['name','email','phone_number']);
     }
 
     /**

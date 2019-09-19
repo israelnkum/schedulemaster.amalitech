@@ -29,7 +29,6 @@
                             <div class="card-body">
                                 <form method="POST" class="needs-validation" novalidate action="{{route('schedules.store')}}">
                                     @csrf
-
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="">Name</label>

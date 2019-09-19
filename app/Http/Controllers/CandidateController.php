@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
+use App\Eligible;
 use App\User;
 use App\Exports\UserExport;
 use App\Imports\UserImport;
@@ -15,7 +17,7 @@ class CandidateController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth'=>'verified']);
+        $this->middleware('auth');
     }
 
     /**
@@ -25,7 +27,8 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        return view('pages.candidates.index');
+        $categories = Categories::all();
+        return view('pages.candidates.index',compact('categories'));
     }
 
     /**
@@ -47,12 +50,9 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'unique:users'],
         ]);
-
 
         if ($validator->fails()){
             toastr()->error('Email is already exist');
@@ -66,7 +66,13 @@ class CandidateController extends Controller
         $candidate->password = Hash::make(strrev($request->input('email')));
         $candidate->role = 'Candidate';
 
+
+
         if ($candidate->save()){
+            $eligible =new Eligible();
+            $eligible->category_id = $request->input('category_id');
+            $eligible->user_id = $candidate->id;
+            $eligible->save();
             toastr()->success('New Candidate Added');
         }else{
             toastr()->error('Error while save');
@@ -81,6 +87,9 @@ class CandidateController extends Controller
         foreach ($selected_id as $value){
             $level = User::find($value);
             $level->delete();
+
+            $eligible = Eligible::where('user_id',$value)->first();
+            $eligible->delete();
         }
 
         toastr()->success('Deleted Successfully');
@@ -113,7 +122,7 @@ class CandidateController extends Controller
         //
     }
 
-    public function import()
+    public function import(Request $request)
     {
         $candidates=   Excel::toCollection(new UserImport(), request()->file('file'));
 
@@ -125,7 +134,7 @@ class CandidateController extends Controller
                 $phone_number = $candidate['phone_number'];
             }
 
-            User::updateOrCreate(['email' => $candidate['email'],'role'=>'Candidate'],
+           $user= User::updateOrCreate(['email' => $candidate['email'],'role'=>'Candidate'],
                 [
                     'name' => $candidate['name'],
                     'email' => $candidate['email'],
@@ -133,6 +142,9 @@ class CandidateController extends Controller
                     'role' => 'Candidate',
                     'password' => Hash::make(strrev($candidate['email']))
                 ]);
+            Eligible::updateOrCreate(
+                ['user_id' => $user->id, 'category_id' => $request->input('category_id')]
+            );
 
         }
         toastr()->success(count($candidates[0]).' Candidate Uploaded Successfully');
@@ -140,8 +152,10 @@ class CandidateController extends Controller
     }
 
     public function all_candidate(){
-        $candidates = User::where('role','Candidate')->get();
-        return view('pages.candidates.index',compact('candidates'));
+        $categories = Categories::all();
+        $candidates = User::with('eligible.category')->where('role','Candidate')->get();
+
+        return view('pages.candidates.index',compact('candidates','categories'));
     }
 
     public function export()

@@ -112,7 +112,7 @@ class SetEmailController extends Controller
         $mail->subscription = $request->input('subscription');
 
         if ($mail->save()){
-            toastr()->success('New Template Created');
+            toastr()->success('Template Updated');
             return back();
         }
     }

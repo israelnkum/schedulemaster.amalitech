@@ -179,4 +179,48 @@ $(document).ready(function () {
         $('#delete_email_form').submit();
     });
 
+
+
+    /*
+    Categories
+     */
+
+
+    let category_table=   $('#category_table').DataTable({
+        "aLengthMenu": [
+            [5, 10, 15, -1],
+            [5, 10, 15, "All"]
+        ],
+        buttons: [
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+            'excel','pdf'
+        ],
+        "iDisplayLength": 10,
+        "language": {
+            search: ""
+        }
+    });
+
+    category_table.column(2).visible(false);
+    category_table.on('click','.new-category',function () {
+
+      let  $tr = $(this).closest('tr');
+
+        if ($($tr).hasClass('child')){
+            $tr = $tr.prev('.parent');
+        }
+
+
+        let data = category_table.row($tr).data();
+
+//     console.log(data);
+
+        $('#category_id').val(data[2]);
+
+
+
+        $('#edit-candidate-form').attr('action', 'candidates/'+data[2]);
+        $('#edit-candidate-info').modal('show');
+        $('#candidate-tittle').text(data[2]);
+    });
 });
